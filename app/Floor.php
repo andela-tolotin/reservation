@@ -12,6 +12,13 @@ class Floor extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'username', 'email', 'password',
+        'name', 
+        'code', 
+        'description',
     ];
+
+    public function reservation()
+    {
+    	return $this->hasMany('App\Reservation');
+    }
 }
