@@ -16,7 +16,17 @@ class Reservation extends Model
         'floor_id', 
         'room_type_id', 
         'time_scheduled',
+        'date_scheduled',
         'status',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'deleted_at', 'updated_at',
     ];
 
     public function user()
@@ -32,5 +42,16 @@ class Reservation extends Model
     public function roomType()
     {
     	return $this->belongsTo('App\RoomType');
+    }
+
+    public function scopeIsReserved($query, $floor, $roomType, $dateScheduled, $timeScheduled)
+    {
+        return $query
+            ->where('floor_id', $floor)
+            ->where('room_type_id', $roomType)
+            ->where('date_scheduled', $dateScheduled)
+            ->where('time_scheduled', $timeScheduled)
+            ->where('status', 1)
+            ->first();
     }
 }

@@ -17,4 +17,4 @@ Route::post('/login', 'Api\UserController@login');
 Route::post('/register', 'Api\UserController@save');
 
 Route::post('/reservation', 'Api\ReservationController@save');
-Route::get('/my_reservations', 'Api\ReservationController@all');
+Route::get('/my_reservations/{user_id}', 'Api\ReservationController@all');

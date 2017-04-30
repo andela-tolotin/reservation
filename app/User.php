@@ -29,7 +29,7 @@ class User extends Authenticatable
 
     public function reservations()
     {
-        return $this->hasMany('App/Reservation');
+        return $this->hasMany('App\Reservation');
     }
 
     public function scopeFindOneByEmail($query, $email)
@@ -44,6 +44,13 @@ class User extends Authenticatable
         return $query
             ->where('username', $username)
             ->orWhere('username', strtolower($username))
+            ->first();
+    }
+
+    public function scopeFindOneById($query, $id)
+    {
+        return $query
+            ->where('id', $id)
             ->first();
     }
 }

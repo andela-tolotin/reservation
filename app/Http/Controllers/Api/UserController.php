@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Auth;
+use App\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class UserController extends Controller
 {
@@ -24,10 +26,10 @@ class UserController extends Controller
 
     public function save(Request $request)
     {
-    	if ($request->has('username') 
-    		&& $request->has('password') 
-    		&& $request->has('name') 
-    		&& $request->has('email')
+    	if ($request->has('username') && 
+            $request->has('password') && 
+            $request->has('name') && 
+            $request->has('email')
     	) {
     		$user = User::findOneByEmail($request->email);
 

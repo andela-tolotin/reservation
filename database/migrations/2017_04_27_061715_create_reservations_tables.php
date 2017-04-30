@@ -38,6 +38,7 @@ class CreateReservationsTables extends Migration
                 ->onDelete('cascade');
 
             $table->string('time_scheduled');
+            $table->date('date_scheduled');
             $table->integer('status')->default(0);
 
             $table->timestamps();
