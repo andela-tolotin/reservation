@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\Api;
 
 use Auth;
@@ -17,10 +16,10 @@ class UserController extends Controller
     				'status' => true, 
     				'message' => 'Login Successful!',
     				'data' => Auth::user(),
-    			]);
+    			], 200);
     		} 
 
-    		return response()->json(['status' => false, 'message' => 'Login Failed!']);
+    		return response()->json(['status' => false, 'message' => 'Login Failed!'], 400);
     	}
     }
 
@@ -34,13 +33,13 @@ class UserController extends Controller
     		$user = User::findOneByEmail($request->email);
 
     		if ($user instanceof User) {
-    			return response()->json(['status' => false, 'message' => 'Email Already Exists']);
+    			return response()->json(['status' => false, 'message' => 'Email Already Exists'], 400);
     		}
 
     		$user = User::findOneByUsername($request->username);
 
     		if ($user instanceof User) {
-    			return response()->json(['status' => false, 'message' => 'Username has been taken']);
+    			return response()->json(['status' => false, 'message' => 'Username has been taken'], 400);
     		}
 
     		$user = User::create([
@@ -51,10 +50,10 @@ class UserController extends Controller
     		]);
 
     		if ($user instanceof User) {
-    			return response()->json(['status' => true, 'message' => 'Registration Successful!']);
+    			return response()->json(['status' => true, 'message' => 'Registration Successful!'], 200);
     		}
 
-    		return response()->json(['status' => false, 'message' => 'Registration Failed!']);
+    		return response()->json(['status' => false, 'message' => 'Registration Failed!'], 400);
     	}
     }
 }
