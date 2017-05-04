@@ -23,19 +23,9 @@ class CreateReservationsTables extends Migration
                 ->on('users')
                 ->onDelete('cascade');
 
-            $table->integer('floor_id')
-                ->unsigned();
-            $table->foreign('floor_id')
-                ->references('id')
-                ->on('floors')
-                ->onDelete('cascade');
+            $table->string('floor_id');
 
-            $table->integer('room_type_id')
-                ->unsigned();
-            $table->foreign('room_type_id')
-                ->references('id')
-                ->on('room_types')
-                ->onDelete('cascade');
+            $table->string('room_type_id');
 
             $table->string('time_scheduled');
             $table->date('date_scheduled');

@@ -9,6 +9,67 @@ use App\Http\Controllers\Controller;
 
 class ReservationController extends Controller
 {
+    public function update(Request $request, $id)
+    {
+        if ($request->has('user_id') &&
+            $request->has('floor_id') &&
+            $request->has('room_type_id') && 
+            $request->has('time_scheduled') && 
+            $request->has('date_scheduled')
+        ) {
+            $reservation = Reservation::findOneById($id);
+
+            if ($reservation instanceof Reservation) {
+                return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
+            }
+
+            $reservation->update([
+                'user_id' => $request->user_id,
+                'floor_id' => $request->floor_id,
+                'room_type_id' => $request->room_type_id, 
+                'time_scheduled' => $request->time_scheduled,
+                'date_scheduled' => $request->date_scheduled,
+                'status' => 1,
+            ]);
+
+            if ($reservation instanceof Reservation) {
+                return response()->json(['status' => true, 'message' => 'Reservation Updated Successful!']);
+            }
+        }
+    }
+
+    public function edit(Request $request, $id)
+    {
+        $reservation = Reservation::findOneById($id);
+
+        if ($reservation instanceof Reservation) {
+            return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
+        }
+
+        return response()->json([
+            'status' => true, 
+            'message' => 'Reservations',
+            'data' => $reservation,
+        ]);
+    }
+
+
+    public function delete(Request $request, $id)
+    {
+        $reservation = Reservation::findOneById($id);
+
+        if ($reservation instanceof Reservation) {
+            return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
+        }
+        // Delete the reservation and remove it from the reservation table
+        $reservation->forceDelete();
+
+        return response()->json([
+            'status' => true, 
+            'message' => 'Reservation deleted Successfully!',
+        ]);
+    }
+
     public function save(Request $request)
     {
     	if ($request->has('user_id') &&

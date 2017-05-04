@@ -18,3 +18,7 @@ Route::post('/register', 'Api\UserController@save');
 
 Route::post('/reservation', 'Api\ReservationController@save');
 Route::get('/my_reservations/{user_id}', 'Api\ReservationController@all');
+
+Route::get('/reservation/{id}/delete', 'Api\ReservationController@delete');
+Route::get('/reservation/{id}/edit', 'Api\ReservationController@edit');
+Route::post('/reservation/{id}/update', 'Api\ReservationController@update');

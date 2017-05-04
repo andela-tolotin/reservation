@@ -54,4 +54,11 @@ class Reservation extends Model
             ->where('status', 1)
             ->first();
     }
+
+    public function scopeFindOneById($query, $id)
+    {
+        return $query
+            ->where('id', $id)
+            ->first();
+    }
 }
