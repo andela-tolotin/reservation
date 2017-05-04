@@ -19,7 +19,7 @@ class ReservationController extends Controller
         ) {
             $reservation = Reservation::findOneById($id);
 
-            if ($reservation instanceof Reservation) {
+            if (! $reservation instanceof Reservation) {
                 return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
             }
 
@@ -42,13 +42,13 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOneById($id);
 
-        if ($reservation instanceof Reservation) {
+        if (! $reservation instanceof Reservation) {
             return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
         }
 
         return response()->json([
             'status' => true, 
-            'message' => 'Reservations',
+            'message' => 'Reservation available',
             'data' => $reservation,
         ]);
     }
@@ -58,7 +58,7 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::findOneById($id);
 
-        if ($reservation instanceof Reservation) {
+        if (! $reservation instanceof Reservation) {
             return response()->json(['status' => false, 'message' => 'Reservation does not exist']);
         }
         // Delete the reservation and remove it from the reservation table
